@@ -1,5 +1,7 @@
 {
     "version": 2,
+    "buildCommand": "composer install --no-dev --optimize-autoloader --no-scripts",
+    "outputDirectory": "public",
     "functions": {
         "api/index.php": {
             "runtime": "vercel-php@0.7.2"
@@ -8,11 +10,11 @@
     "routes": [
         {
             "src": "/build/(.*)",
-            "dest": "/public/build/$1"
+            "dest": "/build/$1"
         },
         {
             "src": "/(css|js|images|fonts|favicon\\.ico)(.*)",
-            "dest": "/public/$1$2"
+            "dest": "/$1$2"
         },
         {
             "src": "/(.*)",
