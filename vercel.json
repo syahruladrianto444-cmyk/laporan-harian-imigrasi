@@ -1,0 +1,18 @@
+{
+    "version": 2,
+    "functions": {
+        "api/*.php": {
+            "runtime": "vercel-php@0.7.2"
+        }
+    },
+    "routes": [
+        { "handle": "filesystem" },
+        { "src": "/(.*)", "dest": "/api/index.php" }
+    ],
+    "env": {
+        "APP_ENV": "production",
+        "APP_DEBUG": "false",
+        "DB_CONNECTION": "mysql",
+        "MYSQL_ATTR_SSL_CA": "database/certs/isrgrootx1.pem"
+    }
+}
