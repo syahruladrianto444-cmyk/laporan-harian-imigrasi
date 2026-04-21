@@ -15,6 +15,10 @@
             "dest": "/public/$1$2"
         },
         {
+            "src": "/test-php",
+            "dest": "/api/test.php"
+        },
+        {
             "src": "/(.*)",
             "dest": "/api/index.php"
         }
@@ -23,7 +27,6 @@
         "APP_ENV": "production",
         "APP_DEBUG": "true",
         "APP_KEY": "base64:p+F+w3r/MuP9nHqOYgVpURUK60a2+tp44KQcopmNY3M=",
-        "DB_CONNECTION": "mysql",
-        "MYSQL_ATTR_SSL_CA": "database/certs/isrgrootx1.pem"
+        "DB_CONNECTION": "mysql"
     }
 }
