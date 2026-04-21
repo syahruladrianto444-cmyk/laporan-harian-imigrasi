@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login · Sistem Laporan Harian Imigrasi</title>
+    <title>Login · Sistem Laporan Harian Imigrasi · Kantor Imigrasi Kelas I Non TPI Pemalang</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -47,7 +47,7 @@
                 </svg>
             </div>
             <h1 class="text-white text-2xl font-bold tracking-wide">SISTEM LAPORAN HARIAN</h1>
-            <p class="text-blue-200 text-sm font-medium tracking-wider mt-1">KANTOR IMIGRASI</p>
+            <p class="text-blue-200 text-sm font-medium tracking-wider mt-1">KANTOR IMIGRASI KELAS I NON TPI PEMALANG</p>
         </div>
 
         <!-- Login Card -->

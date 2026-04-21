@@ -15,6 +15,11 @@ $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
+// Redirect storage path to /tmp for Vercel's read-only filesystem
+if (isset($_SERVER['VERCEL']) || isset($_ENV['VERCEL'])) {
+    $app->useStoragePath('/tmp');
+}
+
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces

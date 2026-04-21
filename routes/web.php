@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\WordDocumentController;
+use App\Http\Controllers\AvidavitController;
+use App\Http\Controllers\SkimController;
+use App\Http\Controllers\AbgController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,4 +39,22 @@ Route::middleware('auth')->group(function () {
     Route::post('/word/upload', [WordDocumentController::class, 'upload'])->name('word.upload');
     Route::delete('/word/documents/{document}', [WordDocumentController::class, 'destroy'])->name('word.destroy');
     Route::get('/word/export', [WordDocumentController::class, 'export'])->name('word.export');
+
+    // ===== Avidavit Feature (Surat Keterangan) =====
+    Route::get('/avidavit', [AvidavitController::class, 'index'])->name('avidavit.index');
+    Route::post('/avidavit/upload', [AvidavitController::class, 'upload'])->name('avidavit.upload');
+    Route::delete('/avidavit/documents/{document}', [AvidavitController::class, 'destroy'])->name('avidavit.destroy');
+    Route::get('/avidavit/export', [AvidavitController::class, 'export'])->name('avidavit.export');
+
+    // ===== SKIM Feature (Surat Keterangan Keimigrasian) =====
+    Route::get('/skim', [SkimController::class, 'index'])->name('skim.index');
+    Route::post('/skim/upload', [SkimController::class, 'upload'])->name('skim.upload');
+    Route::delete('/skim/documents/{document}', [SkimController::class, 'destroy'])->name('skim.destroy');
+    Route::get('/skim/export', [SkimController::class, 'export'])->name('skim.export');
+
+    // ===== ABG Feature (Sertifikat Anak Berkewarganegaraan Ganda) =====
+    Route::get('/abg', [AbgController::class, 'index'])->name('abg.index');
+    Route::post('/abg/upload', [AbgController::class, 'upload'])->name('abg.upload');
+    Route::delete('/abg/documents/{document}', [AbgController::class, 'destroy'])->name('abg.destroy');
+    Route::get('/abg/export', [AbgController::class, 'export'])->name('abg.export');
 });

@@ -128,7 +128,8 @@
                 </div>
                 <div class="hidden sm:block">
                     <h1 class="text-base font-bold tracking-wide leading-tight">SISTEM LAPORAN HARIAN IMIGRASI</h1>
-                    <p class="text-blue-200 text-[10px] font-medium tracking-widest uppercase">Direktorat Jenderal Imigrasi · Kementerian Hukum dan HAM RI</p>
+                    <p class="text-blue-200 text-[10px] font-medium tracking-widest uppercase leading-relaxed">Kementerian Imigrasi dan Pemasyarakatan Republik Indonesia · Direktorat Jenderal Imigrasi</p>
+                    <p class="text-blue-200 text-[10px] font-medium tracking-widest uppercase leading-relaxed">Kantor Wilayah Jawa Tengah · Kantor Imigrasi Kelas I Non TPI Pemalang</p>
                 </div>
             </div>
 
@@ -185,14 +186,38 @@
                             <span class="text-[10px] text-slate-400 font-normal">Deteksi PDF</span>
                         </div>
                     </a>
-                    <a href="{{ route('word.index') }}"
-                       class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-slate-600 {{ request()->routeIs('word.*') ? 'active' : '' }}">
-                        <svg class="w-5 h-5 text-blue-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    {{-- Laporan ABK Ganda (hidden) --}}
+
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-4 mb-2">Dokumen Tambahan</p>
+
+                    <a href="{{ route('avidavit.index') }}"
+                       class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-slate-600 {{ request()->routeIs('avidavit.*') ? 'active' : '' }}">
+                        <svg class="w-5 h-5 text-amber-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                         </svg>
                         <div>
-                            <span class="block leading-tight">Laporan ABK Ganda</span>
-                            <span class="text-[10px] text-slate-400 font-normal">Deteksi Word</span>
+                            <span class="block leading-tight">Laporan Avidavit</span>
+                            <span class="text-[10px] text-slate-400 font-normal">Deteksi PDF</span>
+                        </div>
+                    </a>
+                    <a href="{{ route('skim.index') }}"
+                       class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-slate-600 {{ request()->routeIs('skim.*') ? 'active' : '' }}">
+                        <svg class="w-5 h-5 text-teal-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        <div>
+                            <span class="block leading-tight">Laporan SKIM</span>
+                            <span class="text-[10px] text-slate-400 font-normal">Deteksi PDF</span>
+                        </div>
+                    </a>
+                    <a href="{{ route('abg.index') }}"
+                       class="sidebar-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-slate-600 {{ request()->routeIs('abg.*') ? 'active' : '' }}">
+                        <svg class="w-5 h-5 text-indigo-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        <div>
+                            <span class="block leading-tight">Laporan ABG</span>
+                            <span class="text-[10px] text-slate-400 font-normal">Deteksi PDF</span>
                         </div>
                     </a>
                 </nav>
@@ -203,7 +228,7 @@
                 <div class="bg-gov-blue-pale rounded-xl p-3">
                     <p class="text-[10px] font-bold text-gov-blue uppercase tracking-wider">Panduan Singkat</p>
                     <p class="text-[10px] text-slate-500 mt-1 leading-relaxed">
-                        Upload file PDF / Word, sistem akan otomatis mengekstrak data dan menyimpannya ke database. Gunakan tombol Export untuk mengunduh laporan Excel.
+                        Upload file PDF, sistem akan otomatis mengekstrak data dan menyimpannya ke database. Gunakan tombol Export untuk mengunduh laporan Excel.
                     </p>
                 </div>
             </div>
