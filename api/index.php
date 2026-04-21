@@ -1,40 +1,10 @@
 <?php
 
-// Vercel Entry Point - Serverless Environment Overrides
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-
-// Force output to the browser even if it crashes later
-ob_start();
-echo "<!-- Vercel PHP Diagnostic Start -->\n";
-
 try {
     $apiDir = __DIR__;
     $rootDir = realpath($apiDir . '/..');
     
-    echo "<!-- API Dir: $apiDir -->\n";
-    echo "<!-- Root Dir: $rootDir -->\n";
-    
-    // 1. Check critical files
-    $indexFile = $rootDir . '/public/index.php';
-    $autoloadFile = $rootDir . '/vendor/autoload.php';
-    
-    if (!file_exists($autoloadFile)) {
-        echo "<h1>FATAL: vendor/autoload.php not found!</h1>";
-        echo "<p>Search path: $autoloadFile</p>";
-        ob_end_flush();
-        exit;
-    }
-    
-    if (!file_exists($indexFile)) {
-        echo "<h1>FATAL: public/index.php not found!</h1>";
-        echo "<p>Search path: $indexFile</p>";
-        ob_end_flush();
-        exit;
-    }
-
-    // 2. Setup /tmp directories for read-only filesystem
+    // 1. Setup /tmp directories for read-only filesystem
     $tmpAppDir = '/tmp/app';
     $tmpDirs = [
         $tmpAppDir . '/framework/cache/data',
@@ -49,7 +19,7 @@ try {
         }
     }
 
-    // 3. Environment Overrides
+    // 2. Environment Overrides
     $_SERVER['VERCEL'] = '1';
     $_ENV['VERCEL'] = '1';
     
@@ -61,15 +31,10 @@ try {
     putenv('CACHE_DRIVER=array');
     putenv('SESSION_DRIVER=cookie');
 
-    // 4. Flush diagnostics before loading Laravel
-    echo "<!-- Diagnostics pass. Loading Laravel... -->\n";
-    ob_end_flush();
-    flush();
-
-    require $indexFile;
+    // 3. Load Laravel
+    require $rootDir . '/public/index.php';
 
 } catch (\Throwable $e) {
-    if (ob_get_level() > 0) ob_end_clean();
     header("HTTP/1.1 500 Internal Server Error");
     echo "<h1>Vercel PHP Fatal Error</h1>";
     echo "<strong>Message:</strong> " . htmlspecialchars($e->getMessage()) . "<br>";

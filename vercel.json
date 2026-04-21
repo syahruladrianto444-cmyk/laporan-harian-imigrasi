@@ -26,7 +26,8 @@
     ],
     "env": {
         "APP_ENV": "production",
-        "APP_DEBUG": "true",
+        "APP_DEBUG": "false",
+        "APP_URL": "https://laporan-imigrasi-harian.vercel.app",
         "APP_KEY": "base64:p+F+w3r/MuP9nHqOYgVpURUK60a2+tp44KQcopmNY3M=",
         "DB_CONNECTION": "mysql",
         "COMPOSER_INSTALL_ARGS": "--no-dev --no-scripts --no-plugins --optimize-autoloader"
