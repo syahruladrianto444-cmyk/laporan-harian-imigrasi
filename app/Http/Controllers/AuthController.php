@@ -41,14 +41,11 @@ class AuthController extends Controller
             
         } catch (\Exception $e) {
             // Log error to Vercel stderr
-            error_log('Login Error: ' . $e->getMessage());
+            error_log('Detailed Login Error: ' . $e->getMessage());
             
-            if (config('app.debug')) {
-                throw $e;
-            }
-
+            // Pass the REAL error message to the user temporarily for debugging
             return back()->withErrors([
-                'email' => 'Terjadi kesalahan sistem saat mencoba login. Silakan coba lagi nanti.',
+                'email' => 'DEBUG ERROR: ' . $e->getMessage(),
             ])->onlyInput('email');
         }
     }
