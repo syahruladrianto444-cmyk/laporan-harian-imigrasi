@@ -58,3 +58,22 @@ Route::middleware('auth')->group(function () {
     Route::delete('/abg/documents/{document}', [AbgController::class, 'destroy'])->name('abg.destroy');
     Route::get('/abg/export', [AbgController::class, 'export'])->name('abg.export');
 });
+
+// Temporary Route to Setup Database on Vercel
+Route::get('/migrate-db', function () {
+    try {
+        // Run migrations and seeds
+        // --force is required for production
+        // migrate:fresh will recreate all tables
+        Illuminate\Support\Facades\Artisan::call('migrate:fresh', [
+            '--seed' => true,
+            '--force' => true,
+        ]);
+        
+        $output = Illuminate\Support\Facades\Artisan::output();
+        
+        return "<h1>Migration and Seeding Success!</h1><pre>$output</pre><br><a href='/login'>Go to Login</a>";
+    } catch (\Exception $e) {
+        return "<h1>Migration Failed</h1><pre>" . $e->getMessage() . "</pre>";
+    }
+});
