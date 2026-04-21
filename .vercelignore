@@ -1,0 +1,16 @@
+vendor
+node_modules
+.git
+.vercel
+storage/*.php
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/logs/*
+public/storage
+.env
+.env.*
+temp_out.html
+test_out.html
+test_pdf_methods.php
+test_pdf_parse.php

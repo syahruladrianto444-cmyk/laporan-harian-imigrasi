@@ -5,18 +5,32 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
+// Force output to the browser even if it crashes later
+ob_start();
 echo "<!-- Vercel PHP Diagnostic Start -->\n";
 
 try {
-    $rootDir = dirname(__DIR__);
-    echo "<!-- Root: $rootDir -->\n";
+    $apiDir = __DIR__;
+    $rootDir = realpath($apiDir . '/..');
     
-    // 1. Check vendor
-    if (!file_exists($rootDir . '/vendor/autoload.php')) {
+    echo "<!-- API Dir: $apiDir -->\n";
+    echo "<!-- Root Dir: $rootDir -->\n";
+    
+    // 1. Check critical files
+    $indexFile = $rootDir . '/public/index.php';
+    $autoloadFile = $rootDir . '/vendor/autoload.php';
+    
+    if (!file_exists($autoloadFile)) {
         echo "<h1>FATAL: vendor/autoload.php not found!</h1>";
-        echo "<p>This means 'composer install' failed during the Vercel build process.</p>";
-        $files = scandir($rootDir);
-        echo "<pre>Files in root: " . implode(", ", $files) . "</pre>";
+        echo "<p>Search path: $autoloadFile</p>";
+        ob_end_flush();
+        exit;
+    }
+    
+    if (!file_exists($indexFile)) {
+        echo "<h1>FATAL: public/index.php not found!</h1>";
+        echo "<p>Search path: $indexFile</p>";
+        ob_end_flush();
         exit;
     }
 
@@ -47,10 +61,15 @@ try {
     putenv('CACHE_DRIVER=array');
     putenv('SESSION_DRIVER=cookie');
 
-    // 4. Load Laravel
-    require $rootDir . '/public/index.php';
+    // 4. Flush diagnostics before loading Laravel
+    echo "<!-- Diagnostics pass. Loading Laravel... -->\n";
+    ob_end_flush();
+    flush();
+
+    require $indexFile;
 
 } catch (\Throwable $e) {
+    if (ob_get_level() > 0) ob_end_clean();
     header("HTTP/1.1 500 Internal Server Error");
     echo "<h1>Vercel PHP Fatal Error</h1>";
     echo "<strong>Message:</strong> " . htmlspecialchars($e->getMessage()) . "<br>";

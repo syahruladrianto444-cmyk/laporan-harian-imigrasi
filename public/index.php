@@ -1,4 +1,5 @@
 <?php
+// <!-- Public Index Diagnostic -->
 
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
