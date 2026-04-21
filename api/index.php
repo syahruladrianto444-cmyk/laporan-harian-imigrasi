@@ -41,6 +41,7 @@ try {
         'DB_PORT' => '4000',
         'APP_DEBUG' => 'false',
         'DB_SSL_MODE' => 'REQUIRED',
+        'MYSQL_ATTR_SSL_CA' => '/etc/pki/tls/certs/ca-bundle.crt',
     ];
 
     foreach ($toOverride as $key => $val) {

@@ -58,21 +58,3 @@ Route::middleware('auth')->group(function () {
     Route::delete('/abg/documents/{document}', [AbgController::class, 'destroy'])->name('abg.destroy');
     Route::get('/abg/export', [AbgController::class, 'export'])->name('abg.export');
 });
-
-// Diagnostic Route
-Route::get('/db-check', function () {
-    try {
-        $tables = Illuminate\Support\Facades\DB::select('SHOW TABLES');
-        return response()->json([
-            'status' => 'success',
-            'database' => Illuminate\Support\Facades\DB::getDatabaseName(),
-            'tables' => $tables,
-        ]);
-    } catch (\Exception $e) {
-        return response()->json([
-            'status' => 'error',
-            'message' => $e->getMessage(),
-            'trace' => $e->getTraceAsString()
-        ], 500);
-    }
-});
