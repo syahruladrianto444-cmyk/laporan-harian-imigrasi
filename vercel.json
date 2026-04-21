@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "outputDirectory": ".",
+    "framework": null,
     "buildCommand": "echo 'Build skipped'",
     "functions": {
         "api/*.php": {
