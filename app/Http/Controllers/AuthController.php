@@ -29,14 +29,28 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($credentials, $request->boolean('remember'))) {
-            $request->session()->regenerate();
-            return redirect()->intended(route('pdf.index'));
-        }
+        try {
+            if (Auth::attempt($credentials, $request->boolean('remember'))) {
+                $request->session()->regenerate();
+                return redirect()->intended(route('pdf.index'));
+            }
 
-        return back()->withErrors([
-            'email' => 'Email atau password salah.',
-        ])->onlyInput('email');
+            return back()->withErrors([
+                'email' => 'Email atau password salah.',
+            ])->onlyInput('email');
+            
+        } catch (\Exception $e) {
+            // Log error to Vercel stderr
+            error_log('Login Error: ' . $e->getMessage());
+            
+            if (config('app.debug')) {
+                throw $e;
+            }
+
+            return back()->withErrors([
+                'email' => 'Terjadi kesalahan sistem saat mencoba login. Silakan coba lagi nanti.',
+            ])->onlyInput('email');
+        }
     }
 
     /**

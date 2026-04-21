@@ -30,6 +30,15 @@
         "APP_URL": "https://laporan-imigrasi-harian.vercel.app",
         "APP_KEY": "base64:p+F+w3r/MuP9nHqOYgVpURUK60a2+tp44KQcopmNY3M=",
         "DB_CONNECTION": "mysql",
+        "DB_HOST": "gateway01.ap-southeast-1.prod.aws.tidbcloud.com",
+        "DB_PORT": "4000",
+        "DB_DATABASE": "test",
+        "DB_USERNAME": "3HmEguLRggppLdM.root",
+        "DB_PASSWORD": "bjihRFNq2ZQgh0Yz",
+        "MYSQL_ATTR_SSL_CA": "",
+        "SESSION_DRIVER": "cookie",
+        "CACHE_DRIVER": "array",
+        "LOG_CHANNEL": "stderr",
         "COMPOSER_INSTALL_ARGS": "--no-dev --no-scripts --no-plugins --optimize-autoloader"
     }
 }

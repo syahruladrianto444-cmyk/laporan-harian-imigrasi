@@ -19,17 +19,36 @@ try {
         }
     }
 
-    // 2. Environment Overrides
+    // 2. Vercel Environment Overrides
     $_SERVER['VERCEL'] = '1';
     $_ENV['VERCEL'] = '1';
     
+    // Path overrides for serverless
     putenv('APP_CONFIG_CACHE=' . $tmpAppDir . '/config.php');
     putenv('APP_PACKAGES_CACHE=' . $tmpAppDir . '/packages.php');
     putenv('APP_SERVICES_CACHE=' . $tmpAppDir . '/services.php');
     putenv('VIEW_COMPILED_PATH=' . $tmpAppDir . '/framework/views');
-    putenv('LOG_CHANNEL=stderr');
-    putenv('CACHE_DRIVER=array');
-    putenv('SESSION_DRIVER=cookie');
+    
+    // Enforce serverless drivers (avoid read-only storage)
+    $_ENV['LOG_CHANNEL'] = $_SERVER['LOG_CHANNEL'] = 'stderr';
+    $_ENV['CACHE_DRIVER'] = $_SERVER['CACHE_DRIVER'] = 'array';
+    $_ENV['SESSION_DRIVER'] = $_SERVER['SESSION_DRIVER'] = 'cookie';
+    
+    // Map Vercel environment variables to Laravel expected keys
+    // This allows using standard Laravel env names in vercel dashboard
+    $toOverride = [
+        'DB_CONNECTION' => 'mysql',
+        'DB_PORT' => '4000',
+        'APP_DEBUG' => 'false',
+        'DB_SSL_MODE' => 'REQUIRED',
+    ];
+
+    foreach ($toOverride as $key => $val) {
+        if (!isset($_ENV[$key]) && !isset($_SERVER[$key])) {
+            $_ENV[$key] = $_SERVER[$key] = $val;
+            putenv("$key=$val");
+        }
+    }
 
     // 3. Load Laravel
     require $rootDir . '/public/index.php';
