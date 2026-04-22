@@ -19,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (isset($_SERVER['VERCEL_URL'])) {
+        if ($this->app->environment('production') || isset($_SERVER['VERCEL']) || isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
             \Illuminate\Support\Facades\URL::forceScheme('https');
         }
     }
