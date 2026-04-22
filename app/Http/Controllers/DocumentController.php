@@ -60,8 +60,8 @@ class DocumentController extends Controller
             $fileName = $file->getClientOriginalName();
             try {
                 // Store to temp
-                $path = $file->storeAs('temp_pdfs', $fileName, 'local');
-                $fullPath = Storage::disk('local')->path($path);
+                $path = $file->storeAs('temp_pdfs', $fileName, 'tmp');
+                $fullPath = Storage::disk('tmp')->path($path);
 
                 // Extract data
                 $data = $this->pdfParser->extractFromFile($fullPath);
@@ -71,7 +71,7 @@ class DocumentController extends Controller
                 ParsedDocument::create($data);
 
                 // Cleanup temp file
-                Storage::disk('local')->delete($path);
+                Storage::disk('tmp')->delete($path);
 
                 $results['success'][] = $fileName;
             } catch (\Exception $e) {
@@ -132,8 +132,8 @@ class DocumentController extends Controller
         ]);
 
         $file = $request->file('pdf');
-        $path = $file->storeAs('temp_pdfs', $file->getClientOriginalName(), 'local');
-        $fullPath = Storage::disk('local')->path($path);
+        $path = $file->storeAs('temp_pdfs', $file->getClientOriginalName(), 'tmp');
+        $fullPath = Storage::disk('tmp')->path($path);
 
         // Get raw text
         $parser = new \Smalot\PdfParser\Parser();
@@ -144,7 +144,7 @@ class DocumentController extends Controller
         $data = $this->pdfParser->extractFromFile($fullPath);
 
         // Cleanup
-        Storage::disk('local')->delete($path);
+        Storage::disk('tmp')->delete($path);
 
         return response()->json([
             'file_name' => $file->getClientOriginalName(),

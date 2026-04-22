@@ -59,8 +59,8 @@ class WordDocumentController extends Controller
             $fileName = $file->getClientOriginalName();
             try {
                 // Store to temp
-                $path = $file->storeAs('temp_docs', $fileName, 'local');
-                $fullPath = Storage::disk('local')->path($path);
+                $path = $file->storeAs('temp_docs', $fileName, 'tmp');
+                $fullPath = Storage::disk('tmp')->path($path);
 
                 // Extract data (returns array of records, one per page)
                 $records = $this->wordParser->extractFromFile($fullPath);
@@ -72,7 +72,7 @@ class WordDocumentController extends Controller
                 }
 
                 // Cleanup temp file
-                Storage::disk('local')->delete($path);
+                Storage::disk('tmp')->delete($path);
 
                 $pageCount = count($records);
                 $results['success'][] = "{$fileName} ({$pageCount} halaman)";

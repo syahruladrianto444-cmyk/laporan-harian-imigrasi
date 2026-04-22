@@ -59,8 +59,8 @@ class AbgController extends Controller
         foreach ($request->file('docs') as $file) {
             $fileName = $file->getClientOriginalName();
             try {
-                $path = $file->storeAs('temp_docs', $fileName, 'local');
-                $fullPath = Storage::disk('local')->path($path);
+                $path = $file->storeAs('temp_docs', $fileName, 'tmp');
+                $fullPath = Storage::disk('tmp')->path($path);
 
                 $records = $this->parser->extractFromFile($fullPath);
 
@@ -69,7 +69,7 @@ class AbgController extends Controller
                     ParsedAbgDocument::create($record);
                 }
 
-                Storage::disk('local')->delete($path);
+                Storage::disk('tmp')->delete($path);
 
                 $recordCount = count($records);
                 $results['success'][] = "{$fileName} ({$recordCount} record)";
